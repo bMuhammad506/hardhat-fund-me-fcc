@@ -21,17 +21,17 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts() // getting a deployer account from named accounts
     const chainId = network.config.chainId
-    let ethsUsdPriceFeedAddress
+    let ethUsdPriceFeedAddress
     if (developmentChains.includes(network.name)) {
-        const ethUsdAggreagtor = await deployments.get("MockV3Aggregator")
-        ethsUsdPriceFeedAddress = ethUsdAggreagtor.address
+        const ethUsdAggregator = await deployments.get("MockV3Aggregator")
+        ethUsdPriceFeedAddress = ethUsdAggregator.address
     } else {
-        ethsUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"]
+        ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"]
     }
-    const args = [ethsUsdPriceFeedAddress]
+    const arguments = [ethUsdPriceFeedAddress]
     const fundme = await deploy("FundMe", {
         from: deployer,
-        args: args,
+        args: arguments,
         log: true,
         waitConfirmations: network.config.blockConfirmations || 1
     })
