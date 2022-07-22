@@ -4,20 +4,28 @@ const { developmentChains } = require("../../helper-hardhat-config")
 
 developmentChains.includes(network.name)
     ? describe.skip
-    : describe("FundMe Staging Tests", async function() {
+    : describe("FundMe Staging Tests", function () {
           let deployer
           let fundMe
+
           const sendValue = ethers.utils.parseEther("0.1")
+
           beforeEach(async () => {
-              deployer = await getNamedAccounts().deployer
+              deployer = (await getNamedAccounts()).deployer
               fundMe = await ethers.getContract("FundMe", deployer)
           })
 
-          it("allows people to fund and withdraw", async function() {
+          it("allows people to fund and withdraw", async function () {
               await fundMe.fund({ value: sendValue })
-              await fundMe.withdraw()
+              const tx = await fundMe.withdraw()
+              await tx.wait(1)
 
-              const endingFundMeBalance = await fundMe.provider.getBalance(
+              console.log(
+                  `Owner of the contract address: ${await fundMe.getOwner()}`
+              )
+              console.log(`Deployer address: ${deployer}`)
+
+              const endingFundMeBalance = await ethers.provider.getBalance(
                   fundMe.address
               )
               console.log(
