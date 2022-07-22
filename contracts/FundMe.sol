@@ -78,7 +78,8 @@ contract FundMe {
         (bool success, ) = i_owner.call{value: address(this).balance}("");
         require(success);
     }
-     function getAddressToAmountFunded(address fundingAddress)
+
+    function getAddressToAmountFunded(address fundingAddress)
         public
         view
         returns (uint256)
