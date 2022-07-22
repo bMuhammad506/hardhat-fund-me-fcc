@@ -1,7 +1,9 @@
-require("@nomicfoundation/hardhat-toolbox")
-require("hardhat-gas-reporter")
-require("hardhat-deploy")
 require("dotenv").config()
+require("@nomiclabs/hardhat-etherscan")
+require("@nomiclabs/hardhat-waffle")
+require("hardhat-gas-reporter")
+require("solidity-coverage")
+require("hardhat-deploy")
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
@@ -21,7 +23,7 @@ module.exports = {
             accounts: [PRIVATE_KEY],
             chainId: 4,
             blockConfirmations: 6,
-            gas: 6000000
+            // Uncomment this if needed -- gas: 6000000
         },
         hardhat: {
             chainId: 31337
