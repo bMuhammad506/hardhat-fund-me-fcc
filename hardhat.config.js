@@ -23,7 +23,7 @@ module.exports = {
             accounts: [PRIVATE_KEY],
             chainId: 4,
             blockConfirmations: 6,
-            // Uncomment this if needed -- gas: 6000000
+            gas: 6000000
         },
         hardhat: {
             chainId: 31337
